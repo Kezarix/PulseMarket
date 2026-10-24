@@ -1,0 +1,189 @@
+@baseUrl = http://127.0.0.1:8000
+@access =
+@refresh =
+
+
+### ========================
+### USERS
+### ========================
+
+### Register customer
+POST {{baseUrl}}/api/users/register/
+Content-Type: application/json
+
+{
+  "username": "http_customer",
+  "email": "customer@example.com",
+  "password": "ExamplePassword123!",
+  "role": "CUSTOMER"
+}
+
+
+### Register seller
+POST {{baseUrl}}/api/users/register/
+Content-Type: application/json
+
+{
+  "username": "http_seller",
+  "email": "seller@example.com",
+  "password": "ExamplePassword123!",
+  "role": "SELLER"
+}
+
+
+### Login
+POST {{baseUrl}}/api/users/token/
+Content-Type: application/json
+
+{
+  "username": "http_seller",
+  "password": "ExamplePassword123!"
+}
+
+
+### Refresh token
+POST {{baseUrl}}/api/users/token/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "{{refresh}}"
+}
+
+
+### Current user
+GET {{baseUrl}}/api/users/me/
+Authorization: Bearer {{access}}
+
+
+### ========================
+### CATEGORIES
+### ========================
+
+### Get categories
+GET {{baseUrl}}/api/products/categories/
+
+
+### Get category details
+GET {{baseUrl}}/api/products/categories/2/
+
+
+### Create category (ADMIN)
+POST {{baseUrl}}/api/products/categories/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "name": "HTTP Category"
+}
+
+
+### Update category (ADMIN)
+PATCH {{baseUrl}}/api/products/categories/2/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "name": "Updated Category"
+}
+
+
+### ========================
+### PRODUCTS
+### ========================
+
+### Get products
+GET {{baseUrl}}/api/products/
+
+
+### Search products
+GET {{baseUrl}}/api/products/?name=Gaming
+
+
+### Filter by category
+GET {{baseUrl}}/api/products/?category=2
+
+
+### Sort by price
+GET {{baseUrl}}/api/products/?ordering=price
+
+
+### Sort by price descending
+GET {{baseUrl}}/api/products/?ordering=-price
+
+
+### Get product details
+GET {{baseUrl}}/api/products/3/
+
+
+### Create product (SELLER)
+POST {{baseUrl}}/api/products/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "category": 2,
+  "name": "HTTP Gaming Keyboard",
+  "description": "Mechanical gaming keyboard",
+  "price": "150.00",
+  "stock": 10
+}
+
+
+### Update product (SELLER)
+PATCH {{baseUrl}}/api/products/3/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "price": "160.00",
+  "stock": 8
+}
+
+
+### Delete product (SELLER)
+DELETE {{baseUrl}}/api/products/3/
+Authorization: Bearer {{access}}
+
+
+### ========================
+### ORDERS
+### ========================
+
+### Get customer orders
+GET {{baseUrl}}/api/orders/
+Authorization: Bearer {{access}}
+
+
+### Create order (CUSTOMER)
+POST {{baseUrl}}/api/orders/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "product": 3,
+      "quantity": 1
+    }
+  ]
+}
+
+
+### Get order details
+GET {{baseUrl}}/api/orders/4/
+Authorization: Bearer {{access}}
+
+
+### Cancel order (CUSTOMER)
+POST {{baseUrl}}/api/orders/4/cancel/
+Authorization: Bearer {{access}}
+
+
+### Get seller orders
+GET {{baseUrl}}/api/orders/seller/
+Authorization: Bearer {{access}}
+
+
+### Confirm order (SELLER)
+POST {{baseUrl}}/api/orders/4/confirm/
+Authorization: Bearer {{access}}
