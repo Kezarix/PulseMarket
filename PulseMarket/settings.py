@@ -8,7 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -17,7 +16,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-# CORS
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -116,7 +115,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "marketpulse_db",
         "USER": "postgres",
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "PASSWORD": "Lorem2002",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -219,3 +218,10 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
 }
+
+
+# Static files
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
