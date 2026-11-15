@@ -23,11 +23,10 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
     def get_permissions(self):
-        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+        if self.action in ["update", "partial_update", "destroy"]:
             return [IsAuthenticated(), IsMarketplaceAdmin()]
 
         return [AllowAny()]
-
 
 class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer

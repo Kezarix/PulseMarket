@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
-
 User = get_user_model()
 
 
@@ -35,6 +34,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -46,3 +46,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
         read_only_fields = fields
 
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(
+        write_only=True,
+        min_length=8,
+    )
